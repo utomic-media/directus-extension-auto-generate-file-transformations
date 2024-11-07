@@ -2,7 +2,7 @@ import type { TransformationSet } from '../types';
 
 //@see https://github.com/directus/directus/blob/main/api/src/constants.ts#L10
 // NOTE: need to transform the format from the transformation[] to the TransformationSet[]
-export const SYSTEM_ASSETS_TRANSFORMATIONS: TransformationSet[] = [
+export const SYSTEM_ASSETS_TRANSFORMATION_SETS: TransformationSet[] = [
   {
     'transformationParams': {
       key: 'system-small-cover',

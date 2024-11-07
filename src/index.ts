@@ -1,5 +1,5 @@
 import { defineHook } from '@directus/extensions-sdk';
-import { SYSTEM_ASSETS_TRANSFORMATIONS, SUPPORTED_IMAGE_TRANSFORM_FORMATS } from './constants/assets';
+import { SYSTEM_ASSETS_TRANSFORMATION_SETS, SUPPORTED_IMAGE_TRANSFORM_FORMATS } from './constants/assets';
 import type { HookExtensionContext } from '@directus/extensions';
 import type { TransformationSet } from './types';
 
@@ -17,16 +17,16 @@ export default defineHook(({ action }, hookExtensionContext) => {
 			schema: await hookExtensionContext.getSchema(),
 		});
 
-		const customTransformations = await getCustomTransformations(hookExtensionContext);
-		const allTransformations = setDefaultFormatForAutoFormats([...SYSTEM_ASSETS_TRANSFORMATIONS, ...customTransformations]);
+		const customTransformationSets = await getCustomTransformations(hookExtensionContext);
+		const allTransformationSets = setDefaultFormatForAutoFormats([...SYSTEM_ASSETS_TRANSFORMATION_SETS, ...customTransformationSets]);
 
 		// While we could process them in parallel, we decided to generate them in sequence to avoid overloading the server
-		for (const transformation of allTransformations) {
+		for (const transformationSet of allTransformationSets) {
 			try {
-				await sudoAssetsService.getAsset(key, transformation);
-				hookExtensionContext.logger.info(`[AutoGenerateFileTransformations] Auto generated transformation: ${transformation.transformationParams.key} for file ${key}`);
+				await sudoAssetsService.getAsset(key, transformationSet);
+				hookExtensionContext.logger.info(`[AutoGenerateFileTransformations] Auto generated transformation: ${transformationSet.transformationParams.key} for file ${key}`);
 			} catch (error) {
-				hookExtensionContext.logger.error(`[AutoGenerateFileTransformations] Error while Auto-generating file transformation: ${transformation.transformationParams.key} for file ${key}`, error);
+				hookExtensionContext.logger.error(`[AutoGenerateFileTransformations] Error while Auto-generating file transformation: ${transformationSet.transformationParams.key} for file ${key}`, error);
 				hookExtensionContext.logger.error(error);
 			}
 		}
