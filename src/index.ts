@@ -4,6 +4,9 @@ import type { HookExtensionContext } from '@directus/extensions';
 import type { TransformationSet } from './types';
 
 export default defineHook(({ filter, action }, hookExtensionContext) => {
+	
+	// Create transformations on file upload
+	// This is also triggered on file-patch
 	action('files.upload', async ({ payload, key, collection }) => {
 		
 		const sudoAssetsService = new hookExtensionContext.services.AssetsService({
