@@ -1,14 +1,18 @@
 import { defineHook } from '@directus/extensions-sdk';
-import { SYSTEM_ASSETS_TRANSFORMATIONS } from './constants/systemAssetTransformations';
+import { SYSTEM_ASSETS_TRANSFORMATIONS, SUPPORTED_IMAGE_TRANSFORM_FORMATS } from './constants/assets';
 import type { HookExtensionContext } from '@directus/extensions';
 import type { TransformationSet } from './types';
 
-export default defineHook(({ filter, action }, hookExtensionContext) => {
+export default defineHook(({ action }, hookExtensionContext) => {
 	
 	// Create transformations on file upload
 	// This is also triggered on file-patch
-	action('files.upload', async ({ payload, key, collection }) => {
-		
+	action('files.upload', async ({ payload, key }) => {
+		if (!payload || !payload.type || !SUPPORTED_IMAGE_TRANSFORM_FORMATS.includes(payload.type)) {
+			// Can't create transformations for these files
+			return;
+		}
+
 		const sudoAssetsService = new hookExtensionContext.services.AssetsService({
 			schema: await hookExtensionContext.getSchema(),
 		});
@@ -27,7 +31,6 @@ export default defineHook(({ filter, action }, hookExtensionContext) => {
 			}
 		}
 	});
-
 });
 
 

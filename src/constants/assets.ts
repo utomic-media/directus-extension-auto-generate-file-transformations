@@ -46,3 +46,7 @@ export const SYSTEM_ASSETS_TRANSFORMATIONS: TransformationSet[] = [
     }
   },
 ];
+
+
+// @see https://github.com/directus/directus/blob/main/api/src/constants.ts#L86
+export const SUPPORTED_IMAGE_TRANSFORM_FORMATS = ['image/jpeg', 'image/png', 'image/webp', 'image/tiff', 'image/avif'];
