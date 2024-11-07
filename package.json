@@ -24,15 +24,15 @@
 		"link": "directus-extension link"
 	},
 	"repository": {
-    "type": "git",
-    "url": "https://github.com/utomic-media/directus-extension-auto-generate-file-transformations"
-  },
+		"type": "git",
+		"url": "https://github.com/utomic-media/directus-extension-auto-generate-file-transformations"
+	},
 	"author": "Dominic Marcelino | Utomic Media",
-  "license": "GPL-3.0",
-  "bugs": {
-    "url": "https://github.com/utomic-media/directus-extension-auto-generate-file-transformations/issues"
-  },
-  "homepage": "https://github.com/utomic-media/directus-extension-auto-generate-file-transformations#readme",
+	"license": "GPL-3.0",
+	"bugs": {
+		"url": "https://github.com/utomic-media/directus-extension-auto-generate-file-transformations/issues"
+	},
+	"homepage": "https://github.com/utomic-media/directus-extension-auto-generate-file-transformations#readme",
 	"devDependencies": {
 		"@directus/extensions-sdk": "12.1.2",
 		"@types/node": "^22.9.0",
