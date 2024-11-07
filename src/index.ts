@@ -1,9 +1,16 @@
 import { defineHook } from '@directus/extensions-sdk';
 import { SYSTEM_ASSETS_TRANSFORMATION_SETS, SUPPORTED_IMAGE_TRANSFORM_FORMATS } from './constants/assets';
+import { initDatabase } from './database/init';
 import type { HookExtensionContext } from '@directus/extensions';
 import type { TransformationSet } from './types';
 
 export default defineHook(({ action }, hookExtensionContext) => {
+
+	// Initialize the database on server-start
+	action('server.start', async () => {
+		await initDatabase(hookExtensionContext);
+	});
+	
 	
 	// Create transformations on file upload
 	// This is also triggered on file-patch

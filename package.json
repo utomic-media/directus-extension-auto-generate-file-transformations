@@ -39,6 +39,7 @@
 	"homepage": "https://github.com/utomic-media/directus-extension-auto-generate-file-transformations#readme",
 	"devDependencies": {
 		"@directus/extensions-sdk": "12.1.2",
+		"@directus/types": "^12.2.1",
 		"@types/node": "^22.9.0",
 		"typescript": "^5.6.3"
 	}
