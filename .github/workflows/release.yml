@@ -1,0 +1,55 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Release
+
+# Controls when the workflow will run
+on:
+  push:
+   tags:
+    - 'v*'
+
+  # Allows you to run this workflow manually from the Actions tab
+  #workflow_dispatch:
+
+jobs:
+  
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout 🛎
+        uses: actions/checkout@v4
+      
+      - name: Setup node 👷🏽‍♂️
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install pnpm 👷🏽‍♂️
+        uses: pnpm/action-setup@v3
+        id: pnpm-install
+        with:
+          version: 8
+          run_install: false
+        
+      - name: Install dependencies 👨🏻‍💻
+        run: pnpm install
+        
+      - name: Run tests 🧪
+        run: pnpm test
+
+      - name: Build files 🔨
+        run: pnpm build
+        
+      - name: Add release to Github 💾 
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "dist/app.js,dist/api.js,package.json"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          generateReleaseNotes: true
+
+      - name: Add release to npm 💾 
+        run: pnpm publish --no-git-checks # --no-git-checks as we're not on a branch but a tag!
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
