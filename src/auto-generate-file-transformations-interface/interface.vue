@@ -25,7 +25,6 @@ const systemTransformations = [
 ];
 
 const allTransformations = computed(() => {
-	// TODO: also include already deleted custom transformations found in the current setting (with icon to remove them!)
 	const customTransformations = settingsStore.settings.storage_asset_presets.map((preset) => ({
 		text: preset.key,
 		value: preset.key,
