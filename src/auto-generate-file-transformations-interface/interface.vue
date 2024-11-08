@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, defineProps, PropType } from 'vue';
+import { computed, PropType } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useStores } from '@directus/extensions-sdk';
 
@@ -80,15 +80,15 @@ const displayAutoFormatNotice = computed(() => {
 <style scoped lang="scss">
 .transformation-checkboxes {
 	--columns: 1;
-	
-	@media (min-width: 600px) {
-		--columns: 2;
-	}
 
 	/* Align with directus select-multiple-checkbox.vue two-columns styles */
 	display: grid;
 	grid-gap: 12px 32px;
 	grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+
+	@media (min-width: 600px) {
+		--columns: 2;
+	}
 }
 
 .v-notice {
