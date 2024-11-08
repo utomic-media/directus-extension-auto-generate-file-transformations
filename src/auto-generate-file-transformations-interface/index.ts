@@ -3,10 +3,10 @@ import InterfaceComponent from './interface.vue';
 
 export default defineInterface({
 	id: 'auto-generate-file-transformations-settings',
-	name: 'Custom',
-	icon: 'box',
-	description: 'This is my custom interface!',
+	name: 'Auto-generate file transformations settings',
+	icon: 'crop',
+	description: 'The settings interface for the "Auto-generate file transformations settings" extension!',
 	component: InterfaceComponent,
 	options: null,
-	types: ['string'],
+	types: ['json'],
 });
