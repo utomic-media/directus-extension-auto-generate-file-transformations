@@ -30,30 +30,6 @@ async function createSettingsField(hookExtensionContext: HookExtensionContext) {
       special: ["cast-json"],
       note: 'On file-upload the extension will auto-generate all selected transformations.',
       interface: 'auto-generate-file-transformations-settings',
-      options: {
-        "fields": [
-          {
-            "meta": {
-              "type": "string",
-              "field": "key",
-              "required": true,
-              "interface": "input"
-            },
-            "name": "key",
-            "type": "string",
-            "field": "key"
-          }
-        ],
-        "choices": [
-          { "text": "system-small-cover", "value": "system-small-cover" },
-          { "text": "system-small-contain", "value": "system-small-contain" },
-          { "text": "system-medium-cover", "value": "system-medium-cover" },
-          { "text": "system-medium-contain", "value": "system-medium-contain" },
-          { "text": "system-large-cover", "value": "system-large-cover" },
-          { "text": "system-large-contain", "value": "system-large-contain" }
-        ],
-        "allowOther": true
-      },
     }
   } as Partial<Omit<Field, 'meta'>> & { field: string; type: Type | null; meta: Partial<FieldMeta>};
 
