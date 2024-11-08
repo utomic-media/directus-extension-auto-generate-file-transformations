@@ -15,3 +15,8 @@ export type TransformationSet = {
 	transformationParams: TransformationParams;
 	acceptFormat?: TransformationFormat | undefined;
 };
+
+export type AutoTransformationSettings = {
+  transformationSet: TransformationSet[];
+  autoGenerateFileTransformations: string[];
+}
