@@ -24,6 +24,10 @@ const systemTransformations = [
 ];
 
 const allTransformations = computed(() => {
+	if (!settingsStore.settings.storage_asset_presets) {
+		return systemTransformations;
+	}
+
 	const customTransformations = settingsStore.settings.storage_asset_presets.map((preset) => ({
 		text: preset.key,
 		value: preset.key,
@@ -39,7 +43,7 @@ const displayAutoFormatNotice = computed(() => {
 	return props.value.find((transformationKey) => {
 		// check if transformation is a system transformation or if it's a custom transformation with format 'auto'
 		const isSystemTransformation = systemTransformations.some((transformation) => transformation.value === transformationKey);
-		const isAutoTransformation = settingsStore.settings.storage_asset_presets.some((preset) => preset.key === transformationKey && preset.format === 'auto');
+		const isAutoTransformation = settingsStore.settings.storage_asset_presets && settingsStore.settings.storage_asset_presets.some((preset) => preset.key === transformationKey && preset.format === 'auto');
 		return isSystemTransformation || isAutoTransformation;
 	});
 });
