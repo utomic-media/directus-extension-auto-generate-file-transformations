@@ -5,8 +5,7 @@ import { useStores } from '@directus/extensions-sdk';
 
 const props = defineProps({
 	value: {
-		type: Array as PropType<String[]>,
-		default: [],
+		type: Array as PropType<String[]> | null,
 	},
 });
 
@@ -33,6 +32,10 @@ const allTransformations = computed(() => {
 });
 
 const displayAutoFormatNotice = computed(() => {
+	if (!props.value) {
+		return false;
+	}
+
 	return props.value.find((transformationKey) => {
 		// check if transformation is a system transformation or if it's a custom transformation with format 'auto'
 		const isSystemTransformation = systemTransformations.some((transformation) => transformation.value === transformationKey);
@@ -61,7 +64,7 @@ const displayAutoFormatNotice = computed(() => {
 			icon-off="check_box_outline_blank"
 			:value="item.value"
 			:label="item.text"
-			:model-value="value"
+			:model-value="value || []"
 			@update:model-value="$emit('input', $event)"
 		/>
 	</div>
