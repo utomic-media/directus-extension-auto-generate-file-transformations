@@ -2,9 +2,9 @@ import { defineHook } from '@directus/extensions-sdk';
 import { SYSTEM_ASSETS_TRANSFORMATION_SETS, SUPPORTED_IMAGE_TRANSFORM_FORMATS } from './constants/assets';
 import { initDatabase } from './database/init';
 import type { HookExtensionContext } from '@directus/extensions';
-import type { TransformationSet, AutoTransformationSettings } from './types';
+import type { TransformationSet, AutoTransformationSettings, TransformationParams } from './types';
 
-export default defineHook(({ action }, hookExtensionContext) => {
+export default defineHook(({ filter, action }, hookExtensionContext) => {
 
 	// Initialize the database on server-start
 	action('server.start', async () => {
@@ -20,11 +20,9 @@ export default defineHook(({ action }, hookExtensionContext) => {
 			return;
 		}
 
-		const autoTransformationSettings = await getAutoTransformationSettings(hookExtensionContext);
-		const customTransformationSets = autoTransformationSettings.transformationSet;
-		const autoGenerateFileTransformations = autoTransformationSettings.autoGenerateFileTransformations;
+		const { customTransformationSets, transformationKeysToGenerate } = await getAutoTransformationSettings(hookExtensionContext);
 
-		if (!autoGenerateFileTransformations || autoGenerateFileTransformations.length === 0) {
+		if (!transformationKeysToGenerate || transformationKeysToGenerate.length === 0) {
 			// No transformations should be generated automatically
 			return;
 		}
@@ -32,7 +30,7 @@ export default defineHook(({ action }, hookExtensionContext) => {
 		const allTransformationSets = setDefaultFormatForAutoFormats([...SYSTEM_ASSETS_TRANSFORMATION_SETS, ...customTransformationSets]);
 		
 		const selectedAutoTransformationSets = allTransformationSets.filter(transformationSet => {
-			return transformationSet.transformationParams.key && autoGenerateFileTransformations.includes(transformationSet.transformationParams.key);
+			return transformationSet.transformationParams.key && transformationKeysToGenerate.includes(transformationSet.transformationParams.key);
 		});
 
 		const sudoAssetsService = new hookExtensionContext.services.AssetsService({
@@ -50,6 +48,23 @@ export default defineHook(({ action }, hookExtensionContext) => {
 			}
 		}
 	});
+
+
+	// On deletion of a transformation preset also remove it from the auto-generation-selection, if it's selected
+	filter('settings.update', async (item: Record<string, any>, { keys }) => {
+		if (!item.storage_asset_presets) {
+			return item;
+		}
+		
+		try {
+			item.extension_auto_generate_file_transformations = await getNewSelectedAutoGenerateFileTransformationKeys(hookExtensionContext, item.storage_asset_presets);
+			return item;
+		} catch (error) {
+			// Prevents the settings from boiung updated, as we failed to remove the preset from the selection
+			throw new Error('[AutoGenerateFileTransformations] Failed to remove the preset from your selection');
+		}
+	})
+	
 });
 
 
@@ -68,8 +83,8 @@ async function getAutoTransformationSettings(hookExtensionContext: HookExtension
 
 
 	return {
-		transformationSet: transformationSet,
-		autoGenerateFileTransformations: settings.extension_auto_generate_file_transformations,
+		customTransformationSets: transformationSet,
+		transformationKeysToGenerate: settings.extension_auto_generate_file_transformations,
 	};
 }
 
@@ -85,4 +100,22 @@ function setDefaultFormatForAutoFormats(transformations: TransformationSet[]): T
 		}
 		return transformation;
 	});
+}
+
+
+/**
+ * Get's the new value for the auto-generate-file-transformations setting after a preset was deleted
+ * (removs non-existing presets from the selection)
+ */
+async function getNewSelectedAutoGenerateFileTransformationKeys(
+	hookExtensionContext: HookExtensionContext,
+	transformations: TransformationParams[]
+):Promise<string[]> {
+	const newCustomTransformationKeys = transformations.map(transformation => transformation.key);
+	const systemTransformationKeys = SYSTEM_ASSETS_TRANSFORMATION_SETS.map(transformationSet => transformationSet.transformationParams.key);
+	const allTransformationKeys = [...newCustomTransformationKeys, ...systemTransformationKeys];
+
+	const { transformationKeysToGenerate } = await getAutoTransformationSettings(hookExtensionContext);
+
+	return transformationKeysToGenerate.filter(key => allTransformationKeys.includes(key));
 }
