@@ -29,7 +29,7 @@ async function createSettingsField(hookExtensionContext: HookExtensionContext) {
     meta: {
       special: ["cast-json"],
       note: 'On file-upload the extension will auto-generate all selected transformations.',
-      interface: 'select-multiple-checkbox',
+      interface: 'auto-generate-file-transformations-settings',
       options: {
         "fields": [
           {
