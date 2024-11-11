@@ -41,7 +41,6 @@ export default defineHook(({ filter, action }, hookExtensionContext) => {
 		for (const transformationSet of selectedAutoTransformationSets) {
 			try {
 				await sudoAssetsService.getAsset(key, transformationSet);
-				hookExtensionContext.logger.info(`[AutoGenerateFileTransformations] Auto generated transformation: ${transformationSet.transformationParams.key} for file ${key}`);
 			} catch (error) {
 				hookExtensionContext.logger.error(`[AutoGenerateFileTransformations] Error while Auto-generating file transformation: ${transformationSet.transformationParams.key} for file ${key}`, error);
 				hookExtensionContext.logger.error(error);
