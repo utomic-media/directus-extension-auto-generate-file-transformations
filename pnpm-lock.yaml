@@ -10,7 +10,7 @@ importers:
     devDependencies:
       '@directus/extensions-sdk':
         specifier: 12.1.2
-        version: 12.1.2(@types/node@22.9.0)(@unhead/vue@1.11.11(vue@3.5.12(typescript@5.6.3)))(knex@3.1.0)(pinia@2.2.6(typescript@5.6.3)(vue@3.5.12(typescript@5.6.3)))(sass@1.80.6)(terser@5.36.0)(typescript@5.6.3)
+        version: 12.1.2(@types/node@22.9.0)(@unhead/vue@1.11.11(vue@3.5.12(typescript@5.6.3)))(debug@4.3.7)(knex@3.1.0)(pinia@2.2.6(typescript@5.6.3)(vue@3.5.12(typescript@5.6.3)))(sass@1.80.6)(terser@5.36.0)(typescript@5.6.3)
       '@directus/types':
         specifier: ^12.2.1
         version: 12.2.1(knex@3.1.0)(vue@3.5.12(typescript@5.6.3))
@@ -1010,8 +1010,8 @@ packages:
   boolbase@1.0.0:
     resolution: {integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==}
 
-  brace-expansion@2.0.1:
-    resolution: {integrity: sha512-XnAIvQ8eM+kC6aULx6wuQiwVsnzsi9d3WxzV3FpWTGA19F621kwdbsAcFKXgKUHZWsy+mY6iL1sHTxWEFCytDA==}
+  brace-expansion@2.1.7:
+    resolution: {integrity: sha512-uZbew1NqdmPDTMJ8ah1y+b+9QEJrfkXFk3RcTQw3X0jW/xRUvFKsg1CfQdSYGdTbXZWExtU3J3ccxtnfw1Fi0g==}
 
   braces@3.0.3:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
@@ -2174,11 +2174,11 @@ snapshots:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
 
-  '@directus/composables@11.1.3(vue@3.5.11(typescript@5.6.3))':
+  '@directus/composables@11.1.3(debug@4.3.7)(vue@3.5.11(typescript@5.6.3))':
     dependencies:
       '@directus/constants': 12.0.0
       '@directus/utils': 12.0.3(vue@3.5.11(typescript@5.6.3))
-      axios: 1.7.7
+      axios: 1.7.7(debug@4.3.7)
       lodash-es: 4.17.21
       nanoid: 5.0.7
       vue: 3.5.11(typescript@5.6.3)
@@ -2187,9 +2187,9 @@ snapshots:
 
   '@directus/constants@12.0.0': {}
 
-  '@directus/extensions-sdk@12.1.2(@types/node@22.9.0)(@unhead/vue@1.11.11(vue@3.5.12(typescript@5.6.3)))(knex@3.1.0)(pinia@2.2.6(typescript@5.6.3)(vue@3.5.12(typescript@5.6.3)))(sass@1.80.6)(terser@5.36.0)(typescript@5.6.3)':
+  '@directus/extensions-sdk@12.1.2(@types/node@22.9.0)(@unhead/vue@1.11.11(vue@3.5.12(typescript@5.6.3)))(debug@4.3.7)(knex@3.1.0)(pinia@2.2.6(typescript@5.6.3)(vue@3.5.12(typescript@5.6.3)))(sass@1.80.6)(terser@5.36.0)(typescript@5.6.3)':
     dependencies:
-      '@directus/composables': 11.1.3(vue@3.5.11(typescript@5.6.3))
+      '@directus/composables': 11.1.3(debug@4.3.7)(vue@3.5.11(typescript@5.6.3))
       '@directus/constants': 12.0.0
       '@directus/extensions': 2.0.4(@unhead/vue@1.11.11(vue@3.5.12(typescript@5.6.3)))(knex@3.1.0)(pinia@2.2.6(typescript@5.6.3)(vue@3.5.12(typescript@5.6.3)))(vue@3.5.11(typescript@5.6.3))
       '@directus/themes': 1.0.3(@unhead/vue@1.11.11(vue@3.5.12(typescript@5.6.3)))(pinia@2.2.6(typescript@5.6.3)(vue@3.5.12(typescript@5.6.3)))(vue@3.5.11(typescript@5.6.3))
@@ -3075,9 +3075,9 @@ snapshots:
 
   asynckit@0.4.0: {}
 
-  axios@1.7.7:
+  axios@1.7.7(debug@4.3.7):
     dependencies:
-      follow-redirects: 1.15.9
+      follow-redirects: 1.15.9(debug@4.3.7)
       form-data: 4.0.1
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
@@ -3095,7 +3095,7 @@ snapshots:
 
   boolbase@1.0.0: {}
 
-  brace-expansion@2.0.1:
+  brace-expansion@2.1.7:
     dependencies:
       balanced-match: 1.0.2
 
@@ -3400,7 +3400,9 @@ snapshots:
 
   flat@6.0.1: {}
 
-  follow-redirects@1.15.9: {}
+  follow-redirects@1.15.9(debug@4.3.7):
+    optionalDependencies:
+      debug: 4.3.7
 
   form-data@4.0.1:
     dependencies:
@@ -3612,7 +3614,7 @@ snapshots:
 
   minimatch@5.1.6:
     dependencies:
-      brace-expansion: 2.0.1
+      brace-expansion: 2.1.7
 
   ms@2.1.2: {}
 
