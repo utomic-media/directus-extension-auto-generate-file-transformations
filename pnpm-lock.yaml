@@ -1355,8 +1355,8 @@ packages:
   ieee754@1.2.1:
     resolution: {integrity: sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==}
 
-  immutable@4.3.7:
-    resolution: {integrity: sha512-1hqclzwYwjRDFLjcFxOM5AYkkG0rpFPpr1RLPMEuGczoS7YA8gLhy8SWXYRAA/XwfEHpfo3cw5JGioS32fnMRw==}
+  immutable@4.3.9:
+    resolution: {integrity: sha512-ObHy4YN7ycwZOUCLI1/6svfyAFu7vL8RhAvVu/bh/RZW9EPlOyDaQ9jDQWCtdqzaXUjgXZCW1migtHE7YI7UGQ==}
 
   import-fresh@3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
@@ -3463,7 +3463,7 @@ snapshots:
 
   ieee754@1.2.1: {}
 
-  immutable@4.3.7: {}
+  immutable@4.3.9: {}
 
   import-fresh@3.3.0:
     dependencies:
@@ -3986,7 +3986,7 @@ snapshots:
   sass@1.80.6:
     dependencies:
       chokidar: 4.0.1
-      immutable: 4.3.7
+      immutable: 4.3.9
       source-map-js: 1.2.1
     optionalDependencies:
       '@parcel/watcher': 2.5.0
